@@ -1,0 +1,39 @@
+{
+  "name": "vibecast-studio",
+  "version": "1.0.0",
+  "description": "Аудиоплеер с авторизацией, избранным и плейлистами",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sttrannik1977rab/VibeCast-Studio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sttrannik1977rab/VibeCast-Studio/issues"
+  },
+  "homepage": "https://github.com/sttrannik1977rab/VibeCast-Studio#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.9.1",
+    "@typescript-eslint/eslint-plugin": "^8.72.0",
+    "@typescript-eslint/parser": "^8.72.0",
+    "eslint": "^10.13.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.0",
+    "vite": "^8.0.16"
+  },
+  "dependencies": {
+    "redom": "^4.3.0",
+    "zod": "^4.6.5"
+  }
+}

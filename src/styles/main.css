@@ -1,0 +1,31 @@
+/**
+ * Главный CSS-файл проекта.
+ * 
+ * Импортирует все остальные стили: переменные, базовые стили,
+ * layout и компоненты. Vite объединяет их в один файл при сборке.
+ */
+
+/* 1. Переменные и база */
+@import './variables.css';
+@import './base.css';
+
+/* 2. Layout */
+@import './layout.css';
+
+/* 3. Компоненты */
+@import './components/logo.css';
+@import './components/icon.css';
+@import './components/sidebar.css';
+@import './components/main-nav.css';
+@import './components/header.css';
+@import './components/search.css';
+@import './components/user-menu.css';
+@import './components/auth-buttons.css';
+@import './components/tracks-section.css';
+@import './components/track-card.css';
+@import './components/audio-player.css';
+@import './components/pagination.css';
+
+/* 4. Страницы */
+@import './pages/auth-page.css';
+@import './pages/profile-page.css';

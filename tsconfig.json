@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+
+    "target": "ES2022", // "target": в какой JavaScript компилировать
+    "lib": ["ES2022", "DOM", "DOM.Iterable"], // "lib": какие встроенные типы использовать (DOM, ES2020 и т.д.)
+    "module": "ESNext", // "module": система модулей (ES модули)
+    "moduleResolution": "bundler", // "moduleResolution": как Node.js разрешает импорты
+    "strict": true, // "strict": строгий режим TypeScript (все проверки включены)
+    "noUnusedLocals": true, // "noUnusedLocals": запрещает неиспользуемые локальные переменные
+    "noUnusedParameters": true, // "noUnusedParameters": запрещает неиспользуемые параметры функций
+    "noFallthroughCasesInSwitch": true, // "noFallthroughCasesInSwitch": запрещает "проваливание" в switch/case
+    "skipLibCheck": true, // "skipLibCheck": пропустить проверку типов в node_modules (ускоряет компиляцию)
+    "allowSyntheticDefaultImports": true, // "allowSyntheticDefaultImports": позволяет импортировать CommonJS модули
+    "resolveJsonModule": true, // "resolveJsonModule": позволяет импортировать JSON файлы
+    "isolatedModules": true, // "isolatedModules": каждый файл считается отдельным модулем
+    "noEmit": true, // "noEmit": не генерировать JS файлы (Vite сам обрабатывает)
+    "paths": {
+
+      "@/*": ["./src/*"]  // "paths": алиасы для путей (должны совпадать с vite.config.ts)
+    }
+  },
+
+  "include": ["src/**/*.ts", "src/**/*.d.ts"], // Какие файлы включать в компиляцию
+   "exclude": ["node_modules", "dist"] // Какие файлы исключить
+}

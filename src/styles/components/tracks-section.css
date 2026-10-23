@@ -1,0 +1,108 @@
+/**
+ * Секция списка треков.
+ * 
+ * Содержит заголовок, шапку таблицы, скролл-контейнер и список карточек.
+ */
+
+.tracks-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.tracks-section__title {
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-2xl);
+    line-height: 1em;
+    color: var(--color-text-two);
+}
+
+.tracks-section__title,
+.tracks-section__header {
+    flex-shrink: 0;
+}
+
+.tracks-section__scroll {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+    width: 100%;
+}
+
+.tracks-section__header {
+    display: grid;
+    grid-template-columns:
+        40px
+        minmax(180px, 2fr)
+        minmax(120px, 1fr)
+        minmax(100px, 1fr)
+        44px
+        56px
+        43px;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--font-size-xs);
+    line-height: 1;
+    letter-spacing: 0.09em;
+    color: var(--color-text-secondary-two);
+    text-transform: uppercase;
+    padding: 0 8px;
+}
+
+.tracks-section__cell:not(:first-child) {
+    padding: 0 0 0 var(--spacing-sm);
+}
+
+.tracks-section__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+@media (max-width: 1100px) {
+    .tracks-section__title {
+        font-size: var(--font-size-xl);
+        margin-bottom: var(--spacing-md);
+    }
+}
+
+@media (max-width: 800px) {
+    .tracks-section__header {
+        grid-template-columns: 40px 2fr 44px 56px 43px;
+    }
+
+    .tracks-section__cell--album,
+    .tracks-section__cell--date {
+        display: none;
+    }
+
+    .tracks-section__cell--duration {
+        grid-column: 4 / 6;
+    }
+}
+
+@media (max-width: 550px) {
+    .tracks-section__title {
+        display: none;
+    }
+
+    .tracks-section__header {
+        display: none;
+    }
+
+    .tracks-section__list {
+        gap: 20px;
+    }
+}
+
+.infinite-scroll-sentinel {
+    height: 20px;
+    width: 100%;
+}

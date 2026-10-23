@@ -1,0 +1,61 @@
+/**
+ * Стили для компонента пагинации.
+ * 
+ * Отображает кнопки страниц и кнопку "Все".
+ * На мобилке пагинация скрывается (заменяется бесконечной подгрузкой).
+ */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg) 0;
+}
+
+.pagination__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 var(--spacing-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition:
+        background-color var(--duration-fast) var(--ease-in-out),
+        color var(--duration-fast) var(--ease-in-out),
+        border-color var(--duration-fast) var(--ease-in-out);
+}
+
+.pagination__btn:hover {
+    background-color: var(--color-bg-secondary);
+    border-color: var(--color-primary);
+}
+
+.pagination__btn--active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-bg);
+    cursor: default;
+}
+
+.pagination__btn--active:hover {
+    background-color: var(--color-primary);
+}
+
+.pagination__btn--all {
+    padding: 0 var(--spacing-md);
+    font-size: var(--font-size-sm);
+}
+
+@media (max-width: 550px) {
+    .pagination {
+        padding: var(--spacing-lg-two) 0 0 0;
+    }
+}
