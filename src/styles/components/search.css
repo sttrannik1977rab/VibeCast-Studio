@@ -1,0 +1,63 @@
+/**
+ * Поле поиска.
+ * 
+ * Содержит иконку лупы и input. При фокусе — обводка вокруг всего блока
+ * (через :focus-within).
+ */
+
+.search {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 14px 12px;
+    width: 100%;
+    max-width: 798px;
+    border-radius: var(--radius-xxl);
+    background-color: var(--color-bg-secondary);
+    transition:
+        box-shadow var(--duration-fast) var(--ease-in-out),
+        background-color var(--duration-fast) var(--ease-in-out);
+}
+
+.search:hover {
+    background-color: var(--color-bg-hover);
+}
+
+.search:focus-within {
+    box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.search .icon {
+    color: var(--color-text-secondary-two);
+}
+
+.search__input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: var(--font-size-md);
+    color: var(--color-text);
+}
+
+.search__input::placeholder {
+    font-size: var(--font-size-xs);
+    line-height: 1;
+    letter-spacing: 0.09em;
+    color: var(--color-text-secondary-two);
+    text-transform: uppercase;
+}
+
+@media (max-width: 1100px) {
+    .search {
+        margin-left: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 750px) {
+    .search {
+        display: none;
+    }
+}

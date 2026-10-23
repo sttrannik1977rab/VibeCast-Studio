@@ -1,0 +1,216 @@
+/**
+ * Карточка трека в списке.
+ * 
+ * На десктопе — grid из 7 колонок (номер, инфо, альбом, дата, сердечко, время, меню).
+ * На планшетах и мобилках количество колонок уменьшается.
+ */
+
+.track-card {
+    display: grid;
+    grid-template-columns:
+        40px                  /* № */
+        minmax(180px, 2fr)    /* Название (обложка+текст) */
+        minmax(120px, 1fr)    /* Альбом */
+        minmax(100px, 1fr)    /* Дата */
+        44px                  /* Сердечко */
+        56px                  /* Время */
+        43px;                 /* Меню */
+    align-items: center;
+    min-height: 88px;
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--spacing-md-three) var(--spacing-sm-two);
+    transition: background-color var(--duration-fast) var(--ease-in-out);
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.track-card:hover {
+    background-color: var(--color-bg-secondary);
+}
+
+.track-card__cell:not(:first-child) {
+    padding: 0 0 0 var(--spacing-sm);
+}
+
+.track-card__cell--number {
+    font-size: var(--font-size-lg);
+    line-height: 1;
+    letter-spacing: 0.01em;
+}
+
+.track-card__cell--info-wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm-two);
+}
+
+.track-card__img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    /* Цвет фона вычисляется из --track-id (задаётся в JS) */
+    background-color: hsl(calc(var(--track-id) * 37), 70%, 60%);
+    flex-shrink: 0;
+    color: var(--color-bg);
+    font-size: 24px;
+    font-weight: var(--font-weight-normal);
+    line-height: 1;
+    text-transform: uppercase;
+    user-select: none;
+}
+
+.track-card__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm-two);
+    min-width: 0;
+}
+
+.track-card__title {
+    font-size: var(--font-size-sm);
+    line-height: 12px;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-card__artist {
+    font-size: var(--font-size-xs);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-card__size {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    line-height: 1;
+    margin-top: 2px;
+}
+
+.track-card__cell--album {
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-card__date {
+    font-size: var(--font-size-sm);
+    line-height: 12px;
+    letter-spacing: 0.01em;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+}
+
+.track-card__favorite-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform var(--duration-fast) var(--ease-in-out);
+}
+
+.track-card__favorite-btn .icon {
+    --heart-color: transparent;
+    stroke: var(--color-primary);
+    transition:
+        fill var(--duration-fast) var(--ease-in-out),
+        transform var(--duration-fast) var(--ease-in-out);
+}
+
+.track-card__favorite-btn:hover .icon {
+    --heart-color: var(--color-primary);
+    transform: scale(1.1);
+}
+
+.track-card__favorite-btn.is-active .icon {
+    --heart-color: var(--color-primary);
+    stroke: var(--color-primary);
+}
+
+.track-card__favorite-btn:hover {
+    transform: scale(1.1);
+}
+
+.track-card__cell--actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.track-card__duration {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.track-card__menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform var(--duration-fast) var(--ease-in-out);
+}
+
+.track-card__menu-btn:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 800px) {
+    .track-card {
+        grid-template-columns: 40px 2fr 44px 56px 43px;
+        padding: 0 var(--spacing-sm-two) 0 0;
+    }
+
+    .track-card__cell--album,
+    .track-card__cell--date {
+        display: none;
+    }
+}
+
+@media (max-width: 550px) {
+    .track-card {
+        display: grid;
+        grid-template-columns: 2fr 44px 43px;
+        border-bottom: none;
+        background-color: var(--color-bg);
+        min-height: 70px;
+    }
+
+    .track-card__cell--info-wrap {
+        flex: 1;
+        min-width: 0;
+        gap: var(--spacing-sm);
+    }
+
+    .track-card__cell--number,
+    .track-card__cell--duration {
+        display: none;
+    }
+
+    .track-card__cell,
+    .track-card__cell:not(:first-child) {
+        padding: 0;
+    }
+
+    .track-card__cell--menu,
+    .track-card__cell--favorite {
+        justify-self: flex-end;
+    }
+
+    .track-card__img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .track-card__title {
+        font-size: var(--spacing-lg-three);
+    }
+}
