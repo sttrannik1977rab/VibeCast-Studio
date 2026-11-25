@@ -48,11 +48,12 @@ button {
 }
 
 /* ИЗОБРАЖЕНИЯ */
-img {
+/* img {
     max-width: 100%;
     height: auto;
     display: block;
-}
+    object-fit: contain;
+} */
 
 /* УТИЛИТАРНЫЕ КЛАССЫ */
 .visually-hidden {
