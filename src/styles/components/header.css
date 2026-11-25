@@ -1,0 +1,63 @@
+/**
+ * Шапка приложения.
+ * 
+ * Содержит логотип (для мобилки), поиск и блок авторизации.
+ * На десктопе логотип скрыт (он есть в сайдбаре).
+ */
+
+.vibecast__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-md-two) var(--spacing-xl) var(--spacing-xl-two) var(--spacing-2xl);
+    min-height: var(--header-height);
+    background-color: var(--color-bg);
+    flex-shrink: 0;
+}
+
+/* Логотип по умолчанию (на десктопе) скрыт */
+.header__logo {
+    display: none;
+}
+
+/* Планшет */
+@media (max-width: 1100px) {
+    .vibecast__header {
+        gap: var(--spacing-md);
+        padding: var(--spacing-md-two) var(--spacing-lg);
+        clip-path: inset(0); /* Обрезаем полоску по границам хедера */
+    }
+
+    .header__logo {
+        position: relative;
+        display: block;
+        flex-shrink: 0;
+    }
+
+    /* Вертикальная полоска справа от лого */
+    .header__logo::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: -100px;
+        bottom: -100px;
+        width: 1px;
+        background-color: var(--color-border);
+        transform: translateX(12px); /* Отступ от логотипа до полоски */
+    }
+}
+
+/* Мобилка (скрываем поиск и сжимаем отступы) */
+@media (max-width: 750px) {
+    .header__logo::after {
+        display: none;
+    }
+}
+
+@media (max-width: 550px) {
+    .vibecast__header {
+        padding: var(--spacing-md-two) var(--spacing-md);
+        min-height: var(--header-height-mobile);
+    }
+}

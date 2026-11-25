@@ -1,0 +1,93 @@
+/**
+ * Основная навигация (Избранное, Аудиокомпозиции).
+ * 
+ * На десктопе — вертикальный список.
+ * На планшетах и мобилках — горизонтальные кнопки-пилюли.
+ */
+
+.main-nav {
+    width: 100%;
+}
+
+.main-nav__list {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-nav__link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 0 0 30px;
+    height: 50px;
+    background-color: transparent;
+    color: var(--color-text-two);
+    text-decoration: none;
+    transition: background-color var(--duration-normal) var(--ease-in-out);
+}
+
+.main-nav__link:hover,
+.main-nav__link:focus-visible {
+    background-color: var(--color-bg);
+}
+
+.main-nav__link--active {
+    background-color: var(--color-bg);
+}
+
+.main-nav__text {
+    font-size: var(--font-size-lg);
+    line-height: 1;
+}
+
+/* Планшет */
+@media (max-width: 1100px) {
+    .main-nav__list {
+        flex-direction: row;
+        gap: var(--spacing-sm);
+    }
+
+    .main-nav__link {
+        padding: 8px 12px;
+        height: auto;
+    }
+
+    .main-nav__link--active {
+        background-color: var(--color-bg);
+    }
+
+    .main-nav__text {
+        font-size: var(--font-size-sm);
+    }
+}
+
+/* Мобилка */
+@media (max-width: 550px) {
+    .main-nav__list {
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+
+    .main-nav__link {
+        padding: 10px 16px;
+        gap: var(--spacing-sm);
+        height: 44px;
+        border-radius: var(--radius-xxl);
+        background-color: var(--color-bg);
+    }
+
+    .main-nav__link--active {
+        background-color: var(--color-primary);
+        color: white;
+        border-color: var(--color-primary);
+    }
+
+    .main-nav__text {
+        font-size: var(--font-size-sm);
+    }
+
+    .main-nav .icon--large {
+        width: 20px;
+        height: 20px;
+    }
+}

@@ -1,0 +1,69 @@
+/**
+ * Кнопки авторизации (Войти / Регистрация).
+ * 
+ * Отображаются в шапке, если пользователь не авторизован.
+ */
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.auth-buttons[hidden] {
+    display: none;
+}
+
+/* ОБЩИЕ СТИЛИ ДЛЯ КНОПОК */
+.auth-buttons__login,
+.auth-buttons__register {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-xxl);
+    background-color: var(--color-bg-secondary);
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition:
+        background-color var(--duration-fast) var(--ease-in-out),
+        color var(--duration-fast) var(--ease-in-out);
+}
+
+/* «ВОЙТИ» — прозрачная кнопка */
+.auth-buttons__login {
+    background: transparent;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+}
+
+.auth-buttons__login:hover,
+.auth-buttons__login:focus-visible {
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+}
+
+/* «РЕГИСТРАЦИЯ» — заполненная кнопка */
+.auth-buttons__register {
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    color: var(--color-bg);
+}
+
+.auth-buttons__register:hover,
+.auth-buttons__register:focus-visible {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+}
+
+/* АДАПТИВ ДЛЯ МОБИЛКИ (до 550px) */
+@media (max-width: 550px) {
+    .auth-buttons {
+        gap: 4px;
+    }
+
+    .auth-buttons__login,
+    .auth-buttons__register {
+        padding: 5px 10px;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+}

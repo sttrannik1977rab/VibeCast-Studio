@@ -1,0 +1,44 @@
+/**
+ * Базовые стили для всех SVG-иконок.
+ * 
+ * Все иконки используют класс `.icon`.
+ * Размер задаётся модификаторами (`.icon--small`, `.icon--medium`, `.icon--large`).
+ */
+
+.icon {
+    display: inline-block;
+    flex-shrink: 0;
+    fill: currentColor;
+    stroke: currentColor;
+}
+
+/* Модификаторы размера */
+.icon--small {
+    width: 16px;
+    height: 16px;
+}
+
+.icon--medium {
+    width: 24px;
+    height: 24px;
+}
+
+.icon--large {
+    width: 40px;
+    height: 40px;
+}
+
+/* Управление видимостью иконок на разных разрешениях */
+.icon--mobile {
+    display: none;
+}
+
+@media (max-width: 550px) {
+    .icon--desktop {
+        display: none;
+    }
+
+    .icon--mobile {
+        display: inline-block;
+    }
+}

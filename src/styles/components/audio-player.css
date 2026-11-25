@@ -1,0 +1,583 @@
+
+/**
+ * Аудиоплеер (нижняя панель приложения).
+ * 
+ * Три колонки: информация о треке, кнопки управления + прогресс, громкость.
+ * На планшетах и мобилках перестраивается в grid.
+ */
+
+/* 1. КОНТЕЙНЕР ПЛЕЕРА */
+.audio-player {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 84px;
+    padding: 5px 14px 20px 30px;
+    min-height: var(--player-height);
+    border-top: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    overflow: hidden;
+}
+
+/* 2. БЛОК ИНФОРМАЦИИ О ТРЕКЕ */
+.audio-player__track {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 10px;
+    padding-left: 8px;
+    flex-shrink: 0;
+}
+
+/* 3. ОБЛОЖКА ТРЕКА */
+.audio-player__cover {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+/* 4. ИНФОРМАЦИЯ (название + лайк + исполнитель) */
+.audio-player__info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+}
+
+.audio-player__wrap-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.audio-player__title {
+    font-size: var(--font-size-sm);
+    line-height: 12px;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+/* 5. КНОПКА ЛАЙКА */
+.audio-player__favorite-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform var(--duration-fast) var(--ease-in-out);
+}
+
+.audio-player__favorite-btn .icon {
+    --heart-color: transparent;
+    stroke: var(--color-primary);
+    transition:
+        fill var(--duration-fast) var(--ease-in-out),
+        transform var(--duration-fast) var(--ease-in-out);
+}
+
+.audio-player__favorite-btn:hover .icon {
+    --heart-color: var(--color-primary);
+    transform: scale(1.1);
+}
+
+.audio-player__favorite-btn.is-active .icon {
+    --heart-color: var(--color-primary);
+    stroke: var(--color-primary);
+}
+
+/* 6. ИСПОЛНИТЕЛЬ */
+.audio-player__artist {
+    font-size: var(--font-size-xs);
+    line-height: 12px;
+    letter-spacing: 0.01em;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 7. ЦЕНТРАЛЬНАЯ КОЛОНКА (кнопки + прогресс) */
+.audio-player__wrap-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    max-width: 681px;
+}
+
+/* 8. КНОПКИ УПРАВЛЕНИЯ */
+.audio-player__controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.audio-player__btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: color var(--duration-fast) var(--ease-in-out);
+}
+
+.audio-player__btn:hover,
+.audio-player__btn:focus-visible {
+    color: var(--color-text-muted);
+}
+
+.audio-player__btn--shuffle,
+.audio-player__btn--prev,
+.audio-player__btn--next,
+.audio-player__btn--repeat {
+    color: var(--color-text-secondary);
+}
+
+/* 9. PLAY BUTTON */
+.audio-player__play-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-text-secondary);
+    transition: background-color var(--duration-fast) var(--ease-in-out);
+}
+
+.audio-player__play-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--color-bg);
+    flex-shrink: 0;
+}
+
+.audio-player__btn--play:not(.is-pause) .audio-player__play-icon {
+    transform: translate(6px, 5px);
+}
+
+.audio-player__btn--play.is-pause .audio-player__play-icon {
+    width: 20px;
+    height: 20px;
+    transform: none;
+}
+
+.audio-player__btn--play:hover .audio-player__play-circle {
+    background-color: var(--color-text-muted);
+}
+
+/* 10. PROGRESS — блок с временем и полосой */
+.audio-player__progress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+}
+
+/* 11. ВРЕМЯ */
+.audio-player__time {
+    font-size: var(--font-size-xs-time);
+    line-height: 1;
+    letter-spacing: 0.015em;
+    color: var(--color-text-secondary);
+    min-width: 24px;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+/* 12. ПОЛОСА (input[type="range"]) — ОБЩИЕ СТИЛИ */
+.audio-player__slider {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 4px;
+    border-radius: var(--radius-xxxl);
+    background: linear-gradient(
+        to right,
+        var(--color-primary) 0%,
+        var(--color-primary) var(--progress, 0%),
+        var(--color-bg-range) var(--progress, 0%),
+        var(--color-bg-range) 100%
+    );
+    outline: none;
+    cursor: pointer;
+    transition: background-color var(--duration-fast) var(--ease-in-out);
+}
+
+.audio-player__slider:hover {
+    background: linear-gradient(
+        to right,
+        var(--color-primary-dark) 0%,
+        var(--color-primary-dark) var(--progress, 0%),
+        var(--color-bg-range-dark) var(--progress, 0%),
+        var(--color-bg-range-dark) 100%
+    );
+}
+
+.audio-player__slider:focus-visible {
+    box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+/* 13. CHROME / SAFARI / EDGE (WebKit) */
+.audio-player__slider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    border-radius: var(--radius-xxxl);
+}
+
+.audio-player__slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    cursor: pointer;
+    margin-top: -4px;
+    transform: scale(0);
+    transition: transform var(--duration-fast) var(--ease-in-out);
+}
+
+.audio-player__slider:hover::-webkit-slider-thumb {
+    transform: scale(1);
+}
+
+.audio-player__slider:active::-webkit-slider-thumb {
+    transform: scale(1.33);
+}
+
+/* 14. FIREFOX (Moz) */
+.audio-player__slider::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    background-color: var(--color-bg-range);
+    border-radius: var(--radius-xxxl);
+    border: none;
+    transition: background-color var(--duration-fast) var(--ease-in-out);
+}
+
+.audio-player__slider:hover::-moz-range-track {
+    background-color: var(--color-bg-range-dark);
+}
+
+.audio-player__slider::-moz-range-progress {
+    background-color: transparent;
+    height: 4px;
+    border-radius: var(--radius-xxxl);
+}
+
+.audio-player__slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    cursor: pointer;
+    transform: scale(0);
+    transition: transform var(--duration-fast) var(--ease-in-out);
+}
+
+.audio-player__slider:hover::-moz-range-thumb {
+    transform: scale(1);
+}
+
+.audio-player__slider:active::-moz-range-thumb {
+    transform: scale(1.33);
+}
+
+/* 15. СОСТОЯНИЕ: слайдер отключён */
+.audio-player__slider.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.audio-player__slider.is-disabled:hover::-webkit-slider-thumb {
+    transform: scale(0);
+}
+
+.audio-player__slider.is-disabled:active::-webkit-slider-thumb {
+    transform: scale(0);
+}
+
+.audio-player__slider.is-disabled:hover::-moz-range-thumb {
+    transform: scale(0);
+}
+
+.audio-player__slider.is-disabled:active::-moz-range-thumb {
+    transform: scale(0);
+}
+
+/* 16. VOLUME — блок громкости */
+.audio-player__volume {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-right: 16px;
+    max-width: 97px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.audio-player__volume-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+    transition:
+        color var(--duration-fast) var(--ease-in-out),
+        transform var(--duration-fast) var(--ease-in-out);
+    color: var(--color-text-secondary);
+}
+
+.audio-player__volume-btn .icon {
+    color: inherit;
+    flex-shrink: 0;
+}
+
+.audio-player__volume-btn:hover {
+    transform: scale(1.1);
+}
+
+.audio-player__volume-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+.audio-player__volume-btn.is-muted {
+    color: var(--color-primary);
+}
+
+.audio-player__volume.is-muted .audio-player__slider {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.audio-player__volume .audio-player__slider {
+    transition:
+        background-color var(--duration-fast) var(--ease-in-out),
+        opacity var(--duration-normal) var(--ease-in-out);
+}
+
+/* 17. ГРОМКОСТЬ — СЛАЙДЕР */
+.audio-player__volume .audio-player__slider {
+    flex: 1;
+    min-width: 0;
+    max-width: 72px;
+}
+
+/* 18. СОСТОЯНИЕ: трек не загружен */
+.audio-player__info--empty .audio-player__wrap-title,
+.audio-player__info--empty .audio-player__artist {
+    display: none;
+}
+
+/* МЕДИАЗАПРОСЫ */
+
+@media (max-width: 1100px) {
+    .audio-player {
+        grid-template-columns: auto 1fr auto;
+        gap: var(--spacing-2xl);
+        padding: 5px 7px 20px 15px;
+    }
+
+    .audio-player__wrap-controls {
+        max-width: none;
+        justify-self: center;
+    }
+
+    .audio-player__progress {
+        gap: var(--spacing-sm);
+        width: 100%;
+    }
+
+    .audio-player__volume {
+        gap: var(--spacing-sm);
+        justify-self: end;
+        flex-shrink: 0;
+        max-width: 120px;
+    }
+
+    .audio-player__volume .audio-player__slider {
+        max-width: 60px;
+    }
+}
+
+@media (max-width: 800px) {
+    .audio-player {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        grid-template-rows: auto auto;
+        gap: 8px 12px;
+        padding: 10px 15px;
+        align-items: center;
+    }
+
+    .audio-player__track {
+        grid-column: 1;
+        grid-row: 1;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+    }
+
+    .audio-player__wrap-controls {
+        display: contents;
+    }
+
+    .audio-player__controls {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: center;
+    }
+
+    .audio-player__volume {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        padding: 0;
+        max-width: none;
+    }
+
+    .audio-player__volume .audio-player__slider {
+        display: none;
+    }
+
+    .audio-player__volume-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: var(--radius-full);
+        background-color: var(--color-bg);
+        border: 1px solid var(--color-border);
+        padding: 0;
+        flex-shrink: 0;
+        transition: background-color var(--duration-fast) var(--ease-in-out);
+    }
+
+    .audio-player__volume-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .audio-player__volume-btn svg path {
+        stroke: var(--color-text-secondary);
+    }
+
+    .audio-player__volume-btn:hover {
+        background-color: var(--color-bg-secondary);
+        transform: none;
+    }
+
+    .audio-player__progress {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .audio-player__btn--shuffle,
+    .audio-player__btn--prev,
+    .audio-player__btn--next,
+    .audio-player__btn--repeat {
+        display: none;
+    }
+}
+
+@media (max-width: 550px) {
+    .audio-player {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        grid-template-rows: auto auto;
+        gap: 8px 12px;
+        padding: var(--spacing-md-three) var(--spacing-md) var(--spacing-md) var(--spacing-sm);
+        align-items: center;
+        height: auto;
+        min-height: auto;
+    }
+
+    .audio-player__track {
+        grid-column: 1;
+        grid-row: 1;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .audio-player__info {
+        min-width: 0;
+    }
+
+    .audio-player__title {
+        font-size: var(--font-size-sm);
+    }
+
+    .audio-player__artist {
+        font-size: 10px;
+    }
+
+    .audio-player__wrap-controls {
+        display: contents;
+    }
+
+    .audio-player__controls {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+        gap: 0;
+        width: auto;
+    }
+
+    .audio-player__btn--play .audio-player__play-circle {
+        width: 36px;
+        height: 36px;
+    }
+
+    .audio-player__play-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .audio-player__progress {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .audio-player__time {
+        font-size: 10px;
+        min-width: 24px;
+    }
+
+    .audio-player__slider {
+        height: 4px;
+    }
+
+    .audio-player__volume-btn {
+        display: none;
+    }
+}
