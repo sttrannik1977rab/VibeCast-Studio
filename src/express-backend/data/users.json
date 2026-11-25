@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "username": "sttrannik77",
+      "password": "$2a$10$hkVN.YiIYdMkX2.HzIUgEOCoOXUznlo2VLdDF9Gavvb2e4bedFmHG",
+      "email": "sttrannik77@gmail.com"
+    }
+  ],
+  "favorites": {
+    "sttrannik77": [
+      8,
+      1,
+      5,
+      2,
+      4,
+      7
+    ]
+  }
+}
